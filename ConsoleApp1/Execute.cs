@@ -6,70 +6,50 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp1
 {
-    internal class Execute
+    internal class Execute: Beginning
     {
         
-        public void Start()
+        public void Begin()
         {
             Console.WriteLine("Introduce tu nombre");
             string playerName = Console.ReadLine();
             Player player = new Player(playerName);
-            Console.WriteLine("Inicias tu aventura");
-            Console.WriteLine("Hola, nuevo viajero");
-            Console.WriteLine("Como quieres que se llame este npc");
-            string npcNmae = Console.ReadLine();
-            Console.WriteLine("¿Cuantos años quieres que tenga este npc?");
-            int npcAge = int.Parse(Console.ReadLine());
+            Console.WriteLine("Hola " + player.name);
+            Console.WriteLine("Introduce el nombre de tu npc");
+            string npcName = Console.ReadLine();
+            Console.WriteLine("¿Cuántos años quieres que tenga tu npc?");
 
+            bool result = int.TryParse(Console.ReadLine(), out int npcAge);
 
-            while (npcAge < 10 || npcAge > 100)
+            while (result == false || npcAge < 10 || npcAge > 100)
             {
-                if (npcAge < 10)
+                if (result == false)
+                {
+                    Console.WriteLine("Has puesto texto en la edad de tu npc. Debe ser solo un número.");
+                    result = int.TryParse(Console.ReadLine(), out npcAge);
+                }
+                else if (npcAge < 10)
                 {
                     Console.WriteLine("No puedes poner a tu npc una edad muy baja");
-                    npcAge = int.Parse(Console.ReadLine());
+                    result = int.TryParse(Console.ReadLine(), out npcAge);
                 }
-
 
                 else if (npcAge > 100)
                 {
                     Console.WriteLine("No puedes poner a tu npc una edad muy avanzada");
-                    npcAge = int.Parse(Console.ReadLine());
+                    result = int.TryParse(Console.ReadLine(), out npcAge);
                 }
-
             }
 
-            NPC nPC = new NPC(npcNmae, npcAge);
+            NPC npc = new NPC(npcName, npcAge);
 
             Console.WriteLine("Gracias al introducirle el nombre y la edad a tu npc.");
-            Console.WriteLine(nPC.name + " con " + nPC.age + " años de edad");
+            Console.WriteLine(npc.name + " con " + npc.age + " años de edad");
+            
+            Situation situation1 = new Situation();
 
-            Decision();
-        }
+            situation1.ExecutionOfTheStory(player, npc);
 
-        private void Decision()
-        {
-            Console.WriteLine("Escoge izquierda o derecha");
-            Console.WriteLine("1.- Izquierda");
-            Console.WriteLine("2.- Derecha");
-            int result = int.Parse(Console.ReadLine());
-            while (result > 2 || result < 1)
-            {
-                Console.WriteLine("Solo tienes 2 opciones:");
-                Console.WriteLine("1.- Izquierda");
-                Console.WriteLine("2.- Derecha");
-                result = int.Parse(Console.ReadLine());
-            }
-
-            if (result == 1)
-            {
-
-            }
-
-            else if (result == 2)
-            {
-
-            }
         }
     }
 }
