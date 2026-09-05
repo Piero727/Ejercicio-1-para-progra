@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp1
 {
-    internal abstract class SituationBase
+    internal interface Beginning
     {
-        public abstract void ExecutionOfTheStory(Player player, NPC npc);
+        void Begin();
     }
 }

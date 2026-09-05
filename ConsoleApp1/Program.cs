@@ -12,7 +12,7 @@ namespace ConsoleApp1
         {
             Execute execute = new Execute();
 
-            execute.Start();
+            execute.Begin();
         }
     }
 }
